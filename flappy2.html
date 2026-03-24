@@ -11,6 +11,7 @@
       <div id="score">Puntuacion: 0</div>
       <div id="bestScore">Mejor Puntuacion: 0</div>
       <canvas id="gameCanvas" width="400" height="600"></canvas>
+      <div id="recordToast" class="toast">¡Nuevo récord! 🎉</div>
       <div id="startOverlay">
         <div>Presiona Iniciar para comenzar</div>
         <button id="startBtn">Iniciar Juego</button>
@@ -52,6 +53,7 @@
         soundPlayed = false;
         scoreElement.textContent = 'Puntuación: 0';
         bestScoreElement.textContent = 'Mejor Puntuación: ' + bestScore;
+        recordToast.classList.remove('visible');
       }
 
       function drawBird() {
@@ -113,6 +115,15 @@
         });
       }
 
+      const recordToast = document.getElementById('recordToast');
+
+      function showRecordToast() {
+        recordToast.classList.add('visible');
+        setTimeout(() => {
+          recordToast.classList.remove('visible');
+        }, 2500);
+      }
+
       function endGame() {
         if (!gameRunning) return;
         gameRunning = false;
@@ -130,7 +141,8 @@
         if (score > bestScore) {
           bestScore = score;
           localStorage.setItem('flappyBestScore', bestScore);
-          bestScoreElement.textContent = 'Mejor Puntuaci�n: ' + bestScore;
+          bestScoreElement.textContent = 'Mejor Puntuación: ' + bestScore;
+          showRecordToast();
         }
 
         gameOverElement.style.display = 'block';

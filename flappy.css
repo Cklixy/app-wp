@@ -104,6 +104,28 @@ body {
   background: #45a049;
 }
 
+#recordToast {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(40, 180, 40, 0.95);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, top 0.3s ease;
+  z-index: 12;
+}
+
+#recordToast.visible {
+  opacity: 1;
+  top: 28px;
+}
+
 @media (max-width: 600px) {
   #gameCanvas {
     width: 100%;
