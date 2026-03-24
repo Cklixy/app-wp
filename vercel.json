@@ -8,8 +8,20 @@
   ],
   "routes": [
     {
+      "src": "/flappy.css",
+      "dest": "/flappy.css"
+    },
+    {
+      "src": "/bg.mp3",
+      "dest": "/bg.mp3"
+    },
+    {
+      "src": "/dead.mp3",
+      "dest": "/dead.mp3"
+    },
+    {
       "src": "/(.*)",
-      "dest": "/$1"
+      "dest": "/flappy2.html"
     }
   ]
 }
