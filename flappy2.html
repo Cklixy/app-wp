@@ -13,19 +13,24 @@
       <canvas id="gameCanvas" width="400" height="600"></canvas>
       <div id="recordToast" class="toast">¡Nuevo récord! 🎉</div>
       <div id="startOverlay">
-        <div id="gameTitleStart" class="game-title">🐦 FLAPPY BIRD 🐦</div>
+        <div id="gameTitleStart" class="game-title"> FLAPPY BIRD </div>
         <div id="bestScoreStart" class="best-score-display">Mejor Puntuación: 0</div>
         <div class="start-message">Presiona Iniciar para comenzar</div>
         <button id="startBtn" class="start-button">Iniciar Juego</button>
       </div>
       <div id="gameOver">
-        <p>¡Juego Terminado!</p>
+        <p id="gameOverTitle">¡Juego Terminado!</p>
+        <div id="gameOverScores">
+          <p id="currentScoreDisplay">Tu Puntuación: 0</p>
+          <p id="bestScoreGameOver">Mejor Puntuación: 0</p>
+        </div>
         <p>Haz clic para reiniciar</p>
         <button id="restartBtn">Reiniciar</button>
       </div>
     </div>
-    <audio id="dieSound" src="dead.mp3" preload="auto"></audio>
-    <audio id="bgMusic" src="bg.mp3" preload="auto" loop></audio>
+    <audio id="dieSound" src="dead.mp3" preload="auto"></audio> // Sonido de muerte
+    <audio id="bgMusic" src="bg.mp3" preload="auto" loop></audio> // Música de fondo
+    // El código JavaScript se encuentra aquí
     <script>
       const canvas = document.getElementById('gameCanvas');
       const ctx = canvas.getContext('2d');
@@ -33,12 +38,14 @@
       const bestScoreElement = document.getElementById('bestScore');
       const bestScoreStartElement = document.getElementById('bestScoreStart');
       const gameOverElement = document.getElementById('gameOver');
+      const currentScoreDisplay = document.getElementById('currentScoreDisplay');
+      const bestScoreGameOver = document.getElementById('bestScoreGameOver');
       const restartBtn = document.getElementById('restartBtn');
       const startOverlay = document.getElementById('startOverlay');
       const startBtn = document.getElementById('startBtn');
       const dieSound = document.getElementById('dieSound');
       const bgMusic = document.getElementById('bgMusic');
-
+// Estado inicial del juego
       let bird = { x: 60, y: 300, w: 28, h: 20, velocity: 0, gravity: 0.25, jump: -4.6 };
       let pipes = [];
       let score = 0;
@@ -59,7 +66,7 @@
         bestScoreElement.textContent = 'Mejor Puntuación: ' + bestScore;
         recordToast.classList.remove('visible');
       }
-
+      // Funciones de dibujo y lógica del juego
       function drawBird() {
         ctx.fillStyle = '#ffeb3b';
         ctx.fillRect(bird.x, bird.y, bird.w, bird.h);
@@ -87,7 +94,7 @@
         const top = Math.floor(Math.random() * (max - min + 1)) + min;
         pipes.push({ x: canvas.width, top, bottom: top + gap, passed: false });
       }
-
+// Agrega las tuberías iniciales para empezar
       function updatePipes() {
         if (!pipes.length || pipes[pipes.length - 1].x < 220) {
           addPipe();
@@ -105,7 +112,7 @@
           if (pipe.x + 50 < 0) pipes.splice(idx, 1);
         });
       }
-
+// Verifica colisiones con tuberías y límites del canvas
       function checkCollision() {
         if (bird.y < 0 || bird.y + bird.h > canvas.height) return endGame();
         return pipes.some(pipe => {
@@ -118,7 +125,7 @@
           return false;
         });
       }
-
+// Función para mostrar el toast de nuevo récord
       const recordToast = document.getElementById('recordToast');
 
       function showRecordToast() {
@@ -127,7 +134,7 @@
           recordToast.classList.remove('visible');
         }, 2500);
       }
-
+// Función para finalizar el juego, detener música y mostrar pantalla de game over
       function endGame() {
         if (!gameRunning) return;
         gameRunning = false;
@@ -145,14 +152,16 @@
         if (score > bestScore) {
           bestScore = score;
           localStorage.setItem('flappyBestScore', bestScore);
-          bestScoreElement.textContent = 'Mejor Puntuación: ' + bestScore;
-          bestScoreStartElement.textContent = 'Mejor Puntuación: ' + bestScore;
+          bestScoreGameOver.textContent = 'Mejor Puntuación: ' + bestScore;
           showRecordToast();
+        } else {
+          bestScoreGameOver.textContent = 'Mejor Puntuación: ' + bestScore;
+        }
+
+        currentScoreDisplay.textContent = 'Tu Puntuación: ' + score;          showRecordToast();
         }
 
         gameOverElement.style.display = 'block';
-      }
-
       function gameLoop() {
         if (!gameRunning) return;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -164,7 +173,7 @@
         }
         requestAnimationFrame(gameLoop);
       }
-
+// Función para asegurar que la música de fondo se reproduzca, incluso en dispositivos móviles con restricciones de autoplay
       function ensureMusicPlays() {
         if (bgMusic.paused) {
           bgMusic.volume = 0.3;
@@ -190,7 +199,7 @@
         ensureMusicPlays();
         gameLoop();
       }
-
+// Función para manejar la interacción del usuario y permitir que la música de fondo se reproduzca en dispositivos móviles al primer toque o clic
       function handleUserGesture() {
         if (bgMusic.paused) {
           bgMusic.volume = 0.3;
@@ -206,7 +215,7 @@
       function restartGame() {
         startGame();
       }
-
+// Eventos para controlar el juego: espacio para saltar, clic para iniciar/reiniciar
       window.addEventListener('keydown', (event) => {
         if (event.code === 'Space') {
           if (!gameStarted) return startGame();
@@ -227,7 +236,6 @@
       // Inicialmente: mostrar inicio y ocultar game over.
       gameOverElement.style.display = 'none';
       startOverlay.style.display = 'flex';
-
       // Dibujo base para indicar pajaro en sitio.
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       drawBird();
