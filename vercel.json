@@ -2,26 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "flappy2.html",
+      "src": "**/*",
       "use": "@vercel/static"
     }
   ],
   "routes": [
     {
-      "src": "/flappy.css",
-      "dest": "/flappy.css"
-    },
-    {
-      "src": "/bg.mp3",
-      "dest": "/bg.mp3"
-    },
-    {
-      "src": "/dead.mp3",
-      "dest": "/dead.mp3"
-    },
-    {
       "src": "/(.*)",
-      "dest": "/flappy2.html"
+      "dest": "/$1"
     }
   ]
 }
