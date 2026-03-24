@@ -37,6 +37,7 @@
       const bestScoreElement = document.getElementById('bestScore');
       const bestScoreStartElement = document.getElementById('bestScoreStart');
       const gameOverElement = document.getElementById('gameOver');
+      const gameOverTitle = document.getElementById('gameOverTitle');
       const currentScoreDisplay = document.getElementById('currentScoreDisplay');
       const bestScoreGameOver = document.getElementById('bestScoreGameOver');
       const restartBtn = document.getElementById('restartBtn');
@@ -154,9 +155,11 @@
           bestScoreElement.textContent = 'Mejor Puntuación: ' + bestScore;
           bestScoreStartElement.textContent = 'Mejor Puntuación: ' + bestScore;
           bestScoreGameOver.textContent = 'Mejor Puntuación: ' + bestScore;
+          gameOverTitle.textContent = '¡Felicidades, nuevo récord!';
           showRecordToast();
         } else {
           bestScoreGameOver.textContent = 'Mejor Puntuación: ' + bestScore;
+          gameOverTitle.textContent = '¡Casi lo logras! Sigue intentándolo, pronto romperás tu marca.';
         }
 
         currentScoreDisplay.textContent = 'Tu Puntuación: ' + score;
