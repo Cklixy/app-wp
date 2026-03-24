@@ -46,25 +46,21 @@
       bestScoreElement.textContent = 'Mejor Puntuacion: ' + bestScore;
 
       function resetGameState() {
-        bird = { x: 60, y: 300, w: 28, h: 20, velocity: 0, gravity: 0.25, jump: -11 };
+        bird = { x: 60, y: 300, w: 28, h: 20, velocity: 0, gravity: 0.25, jump: -4.6 };
         pipes = [];
         score = 0;
         soundPlayed = false;
-        scoreElement.textContent = 'Puntuacion: 0';
-        bestScoreElement.textContent = 'Mejor Puntuacion: ' + bestScore;
+        scoreElement.textContent = 'Puntuación: 0';
+        bestScoreElement.textContent = 'Mejor Puntuación: ' + bestScore;
       }
-// Dibujo base para indicar pajaro en sitio.
-       ctx.clearRect(0, 0, canvas.width, canvas.height);
-       drawBird();
+
       function drawBird() {
         ctx.fillStyle = '#ffeb3b';
         ctx.fillRect(bird.x, bird.y, bird.w, bird.h);
         ctx.strokeStyle = '#ef6c00';
         ctx.strokeRect(bird.x, bird.y, bird.w, bird.h);
       }
-// Dibujo base para indicar pajaro en sitio.
-       ctx.clearRect(0, 0, canvas.width, canvas.height);
-       drawBird();
+
       function drawPipes() {
         ctx.fillStyle = '#2e7d32';
         pipes.forEach(pipe => {
@@ -72,14 +68,7 @@
           ctx.fillRect(pipe.x, pipe.bottom, 50, canvas.height - pipe.bottom);
         });
       }
-// Dibujo base para indicar pajaro en sitio.
-       ctx.clearRect(0, 0, canvas.width, canvas.height);
-       drawBird();
-       drawPipes();
-       function updateBird() {
-        bird.velocity += bird.gravity;
-        bird.y += bird.velocity;
-      }
+
       function updateBird() {
         bird.velocity += bird.gravity;
         bird.y += bird.velocity;
@@ -104,7 +93,7 @@
           if (!pipe.passed && pipe.x + 50 < bird.x) {
             pipe.passed = true;
             score++;
-            scoreElement.textContent = 'Puntuaci�n: ' + score;
+            scoreElement.textContent = 'Puntuación: ' + score;
           }
 
           if (pipe.x + 50 < 0) pipes.splice(idx, 1);
