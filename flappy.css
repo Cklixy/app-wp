@@ -219,6 +219,77 @@ body {
   top: 28px;
 }
 
+#aboutBtn {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  z-index: 20;
+  border: 1px solid #cfcfcf;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #222;
+  background: #fff;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.2s ease;
+}
+
+#aboutBtn:hover {
+  background: #f5f5f5;
+}
+
+#aboutModal {
+  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+#aboutModal.visible {
+  display: flex;
+}
+
+.about-card {
+  position: relative;
+  width: min(520px, 100%);
+  background: #ffffff;
+  color: #1e1e1e;
+  border-radius: 14px;
+  padding: 28px 24px 22px;
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.35);
+  text-align: left;
+}
+
+.about-card h2 {
+  margin: 0 0 12px;
+  font-size: 28px;
+}
+
+.about-card p {
+  margin: 8px 0;
+  line-height: 1.4;
+  font-size: 17px;
+}
+
+#closeAboutBtn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background: transparent;
+  color: #333;
+  font-size: 30px;
+  line-height: 1;
+  cursor: pointer;
+}
+
 @media (max-width: 600px) {
   #gameCanvas {
     width: 100%;
@@ -254,5 +325,24 @@ body {
   .start-button {
     padding: 12px 24px;
     font-size: 16px;
+  }
+
+  #aboutBtn {
+    right: 10px;
+    bottom: 10px;
+    padding: 7px 10px;
+    font-size: 14px;
+  }
+
+  .about-card {
+    padding: 24px 16px 18px;
+  }
+
+  .about-card h2 {
+    font-size: 24px;
+  }
+
+  .about-card p {
+    font-size: 15px;
   }
 }
